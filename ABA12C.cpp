@@ -24,30 +24,38 @@ int knapsack ( int s , int n , int size[] , int value[] ) {
 		}
 	}
 	
-	for ( int i = 0 ; i < n+1 ; i++ ) {
+	/*for ( int i = 0 ; i < n+1 ; i++ ) {
 
 		for ( int j = 0 ; j < s+1 ; j++ ) {
 			printf("%d " , k[i][j]);
 		}
 		printf("\n");
 	}
-	
+	*/
 	return k[n][s];
 }
 
 int main( int argc , char * argv[] ) {
 
+	int t;
 	int s , n;
 
-	scanf("%d%d" , &s , &n);
+	scanf("%d" , &t);
 
-	int size[n] , value[n];
+	while ( t-- ) {
 
-	for( int i = 0 ; i < n ; i++ ) {
-		scanf("%d%d" , &size[i] , &value[i]);
+		scanf("%d%d" , &s , &n);
+	
+		int size[n] , value[n];
+
+		for( int i = 0 ; i < n ; i++ ) {
+			scanf("%d" , &value[i]);
+			size[i] = 1;
+		}
+
+		printf("%d\n" , knapsack ( s , n , size , value ));
+
 	}
-
-	printf("%d\n" , knapsack ( s , n , size , value ));
 
 	return 0;
 }

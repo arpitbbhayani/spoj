@@ -3,25 +3,25 @@
 
 #define swap(array,i,j) int t; t=array[i];array[i]=array[j];array[j]=t;
 
-void print_array ( int * array , int start , int end ) {
+void print_array ( long long int * array , long long int start , long long int end ) {
 
-	int i = 0;
+	long long int i = 0;
 	printf("Array to count_inv : ");
 	for ( i = start ; i <= end ; i++ ) {
-		printf("%d " , array[i]);
+		printf("%lld " , array[i]);
 	}
 	printf("\n");
 
 }
 
-int merge ( int * array , int l , int m , int h ) {
+long long int merge ( long long int * array , long long int l , long long int m , long long int h ) {
 
 	//print_array ( array , l , h );
 	//printf("h-l+3 = %d\n" , h-l+1);
 	//int * b_array = (int *) malloc ( (h-l+1) * sizeof(int) );
-	int b_array[1050];
-	int i = 0 , j = 0 , k = 0;
-	int count = 0;
+	long long int b_array[200010];
+	long long int i = 0 , j = 0 , k = 0;
+	long long int count = 0;
 
 	i = k = l;
 	j = m+1;
@@ -63,7 +63,7 @@ int merge ( int * array , int l , int m , int h ) {
 	return count;
 }
 
-int count_inv ( int * array , int start , int end ) {
+long long int count_inv ( long long int * array , long long int start , long long int end ) {
 
 	//print_array ( array , start , end );
 
@@ -71,17 +71,17 @@ int count_inv ( int * array , int start , int end ) {
 
 	//printf("end - start > 1 ... so\n");
 
-	int mid = (start + end ) / 2;
+	long long int mid = (start + end ) / 2;
 	//print_array ( array , start , mid );
 
-	int count_l = count_inv ( array , start , mid );
+	long long int count_l = count_inv ( array , start , mid );
 	//printf("count_inv of left_array = %d\n" , count_l);
 	//print_array ( array , mid+1 , end );
 
-	int count_r = count_inv ( array , mid+1 , end );
+	long long int count_r = count_inv ( array , mid+1 , end );
 	//printf("count_inv of right_array = %d\n" , count_r);
 
-	int count_m = merge ( array , start , mid , end );
+	long long int count_m = merge ( array , start , mid , end );
 	//printf("count_inv of merge = %d\n" , count_m);
 
 	return count_l + count_r + count_m;
@@ -89,23 +89,24 @@ int count_inv ( int * array , int start , int end ) {
 
 int main ( int argc , char * argv[] ) {
 
-	int n , i ;
-	int *array;
+	long long int n , i , t;
+	long long int *array;
 
-	scanf("%d" , &n);
+	scanf("%lld" , &t);
 
-	while ( n != 0 ) {
+	while ( t-- ) {
 
-		array = (int *) malloc ( n * sizeof(int) );
+		scanf("%lld" , &n);
+
+		array = (long long int *) malloc ( n * sizeof(long long int) );
 
 		for ( i = 0 ; i < n ; i++ ) {
-			scanf("%d" , &array[i]);
+			scanf("%lld" , &array[i]);
 		}
 		
-		printf("%d\n" , count_inv( array , 0 , n-1 ) );
+		printf("%lld\n" , count_inv( array , 0 , n-1 ) );
 
 		free(array);
-		scanf("%d" , &n);
 
 	}
 

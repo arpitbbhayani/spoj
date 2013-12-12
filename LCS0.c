@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*int readline( char * str ) {
+int readline( char * str ) {
 	int i = 0;
 	char ch;
 	while ( (ch = getchar() ) != '\n' ) {
@@ -10,111 +10,55 @@
 	}
 	str[i] = '\0';
 	return i;
-}*/
+}
 
-long long int lcs ( int ** array , char * s , char * t , int ls , int lt ) {
+int lcs ( int * x , int * y , char * s , char * t , int ls , int lt ) {
 
-	int i , j;
-	//int LEFT = 2;
-	//int TOP = 1;
-	//int CROSS = 3;
-	//int dir[1002][1002];
-	for ( i = 0 ; i < ls+1 ; i++ ) {
-		for ( j = 0 ; j < lt+1 ; j++ ) {
-			if ( j == 0 ) {
-				array[i][j] = 0;
-				//dir[i][j] = TOP;
-			}
-			else if ( i == 0 ) {
-				array[i][j] = 0;
-				//dir[i][j] = LEFT;
-			}
-			else if ( s[i-1] == t[j-1] ) {
-				array[i][j] = array[i-1][j-1] + 1;
-				//dir[i][j] = CROSS;
-			}
-			else if ( array[i-1][j] > array[i][j-1] ) {
-				array[i][j] = array[i-1][j];
-				//dir[i][j] = TOP;
-			}
-			else if ( array[i][j-1] > array[i-1][j] ) {
-				array[i][j] = array[i][j-1];
-				//dir[i][j] = LEFT;
+	int i , j , k;
+
+	for ( i = 1 ; i < ls + 1 ; i++ ) {
+		for ( j = 1 ; j < lt + 1 ; j++ ) {
+			if ( s[i-1] == t[j-1] ) {
+				y[j] = x[j-1] + 1;
 			}
 			else {
-				array[i][j] = array[i][j-1];
-				//dir[i][j] = LEFT;
+				y[j] = y[j-1] > x[j] ? y[j-1] : x[j];
 			}
 		}
-	}
-	/*printf("***************************************************************\n");
-	printf("Array\n");
-	for ( i = 0 ; i < ls+1 ; i++ ) {
-		for ( j = 0 ; j < lt+1 ; j++ ) {
-			printf("%d " , array[i][j] );
-		}
-		printf("\n");
-	}
-	printf("DIRECTION\n");
-	for ( i = 0 ; i < ls+1 ; i++ ) {
-		for ( j = 0 ; j < lt+1 ; j++ ) {
-			printf("%d " , dir[i][j] );
-		}
-		printf("\n");
-	}
-	*/
-	/*long long int sum = 0;
 
-	while ( ! (i == 0 && j == 0) ) {
-		if ( dir[i][j] == LEFT ) {
-			sum += 30;
-			j -= 1;
-		}
-		else if ( dir[i][j] == TOP ) {
-			sum += 15;
-			i -= 1;
-		}
-		else {
-			i -= 1;
-			j -= 1;
-		}
-	}*/
+		int * t;
+		t = x;
+		x = y;
+		y = t;
+	}
 
-	return array[ls][lt];
+	return x[lt];
 }
 
 int main ( int argc , char * argv[] ) {
 
-	int **array;
-	char * s = ( char * ) malloc ( 50001 * sizeof(char) );
-	char * t = ( char * ) malloc ( 50001 * sizeof(char) );
-	int i = 0;
+	char s[50001] , t[50001];
+	int x[50002] , y[50002];
 
 	int ls , lt;
+	int d = 0;
 
-	//ls = readline(s);
-	//lt = readline(t);
+	ls = readline(s);
+	lt = readline(t);
 
-	scanf("%s" , s);
-	scanf("%s" , t);
-
-	ls = strlen(s);
-	lt = strlen(t);
-
-	array = (int **) malloc ( (ls + 1) * sizeof(int *) );
-	for ( i = 0 ; i < (ls + 1) ; i++ ) {
-		array[i] = (int *) malloc ( (lt + 1) * sizeof(int) );
+	/*int start = 0;
+	while ( start < ls && start < lt && s[start] == t[start] ) {
+		start ++;
 	}
 
-
-	printf("%lld\n" , lcs(array,s,t,ls,lt));
-
-	/*free(s);
-	free(t);
-	for ( i = 0 ; i < (ls + 5) ; i++ ) {
-		free( array[i] );
+	while ( start < ls && start < lt && s[ls-1] == t[lt-1] ) {
+		ls--;
+		lt--;
+		d++;
 	}
-	free ( array );
 	*/
+
+	printf("%d\n" , lcs(x,y,s,t,ls,lt));
+
 	return 0;
 }

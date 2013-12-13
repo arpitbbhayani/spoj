@@ -1,3 +1,8 @@
+/*
+	Sieve , sieve , prime
+	digit
+*/
+
 #include <stdio.h>
 #define SIZE 1000010
 #define LIMIT 1000010

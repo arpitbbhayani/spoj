@@ -55,17 +55,12 @@ int main ( int argc , char * argv[] ) {
 		for ( i = 1 ; i <= la ; i++ ) {
 			for ( j = 1 ; j <= lb ; j++ ) {
 
-				if ( a[i-1] == b[j-1] ) {
-					array[i][j] = array[i-1][j-1];
-				}
-				else {
-					array[i][j] = min2 ( array[i-1][j-1] , min2(array[i-1][j] , array[i][j-1])  ) + 1;
-				}
+				int t1 = array[i-1][j-1] + ((a[i-1] == b[j-1]) ? 0 : 1);
+				int t2 = array[i-1][j] + 1;
+				int t3 = array[i][j-1] + 1;
 
-				#if DEBUG
-					printf("comparing %c and %c : " , a[i-1] , b[j-1]);
-					//printf("t1:%d , t2:%d and t3:%d so array[i][j] = %d\n" , t1 , t2 , t3, array[i][j]);
-				#endif
+				array[i][j] = min3(t1,t2,t3);
+
 			}
 		}
 		printf("%d\n" , array[la][lb]);

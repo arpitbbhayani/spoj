@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 #define DEBUG 1
-#define TRUE 1
 
 int readline ( char * str ) {
 
@@ -17,47 +15,68 @@ int readline ( char * str ) {
 	return i;
 }
 
-char a[100010];
-
 int main ( int argc , char * argv[] ) {
 
-	int i = 0 , j = 0;
-	int la = 0;
+	char str[1000000];
+	int t , z;
+	for ( ;  ;  ) {
 
-	while ( scanf("%s" , a) != EOF ) {
+		scanf("%s" , str);
+		int len = strlen(str);
+		int substr_len = 1;
 
-		la = strlen(a);
-
-
-		printf("String : %s and Length : %d\n" , a , la);
-
-		if ( a[0] == '*' && la == 1 ) {
+		if ( len == 1 && str[0] == '*' )
 			break;
-		}
 
-		int substr_length = 1;
-		int k = 0;
+		while ( 1 ) {
 
-		for ( i = 0 ; i < la ; i++ ) {
-			for ( j = 0 ; j < substr_length ; j++ ) {
+			int i , j;
 
-				if ( i+j >= la )
-					break;
+			if ( len % substr_len != 0 ) {
 
-				printf("Comparing : %c and %c\n" , a[i+j] , a[j]);
+				//printf("continuing : len = %d and substr_length = %d\n"  , len , substr_len);
 
-				if ( a[i+j] == a[j] ) {
+				substr_len++;
+				continue;
+			}
+
+			//printf("For len = %d and substr_len = %d\n" , len , substr_len);
+
+			for ( i = substr_len ; i < len ;  ) {
+
+				for ( j = 0 ; j < substr_len ; j++ ) {
+					//printf("Cmparing : %c and %c and i = %d and j = %d\n" , str[i] , str[j] , i , j);
+					if ( str[i] != str[j] ) {
+						break;
+					}
+					i++;
+				}
+
+
+				if ( j == substr_len ) {
+					// Loop completed
+					//printf("Loop Completed\n");
 				}
 				else {
-					substr_length = i;
+					// break executed
+					substr_len = i+1;
+					//printf("Loop not Completed\n");
 					break;
 				}
+
 			}
+
+			if ( i == len ) {
+				printf("%d\n" , len/substr_len);
+				break;
+			}
+			else {
+			}
+
 		}
 
-		printf("substr_index = %d\n" , substr_length);
-	
-	}
 
+
+	}
 	return 0;
 }

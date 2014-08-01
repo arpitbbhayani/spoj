@@ -1,0 +1,98 @@
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <list>
+
+#define DEBUG 0
+
+using namespace std;
+
+list<int> array[2000020];
+
+int a[100010];
+int b[100010];
+int lis[100010];
+
+inline void read_int(int &x) {
+    register int c = getchar_unlocked();
+    x = 0;
+    int neg = 0;
+
+    for(; ((c<48 || c>57) && c != '-'); c = getchar_unlocked());
+
+    if(c=='-') {
+    	neg = 1;
+    	c = getchar_unlocked();
+    }
+
+    for(; c>47 && c<58 ; c = getchar_unlocked()) {
+    	x = (x<<1) + (x<<3) + c - 48;
+    }
+
+    if(neg)
+    	x = -x;
+}
+
+int main ( int argc , char * argv[] ) {
+
+	int t , z , i , j;
+	read_int(t);
+
+	for ( z = 1 ; z <= t ; z++ ) {
+
+		int n , x;
+		read_int(n);
+
+		for ( i = 0 ; i < n ; i++ ) {
+			lis[i] = 1;
+			read_int(a[i]);
+		}
+
+		for ( i = 0 ; i < n ; i++ ) {
+			read_int(x);
+			array[a[i] + 1000000].push_back(x);
+		}
+
+
+		int k = 0;
+		for ( i = 0 ; i < 2000000 ; i++ ) {
+			for ( list<int>::iterator itr = array[i].begin() ; itr != array[i].end() ; itr++ ) {
+				b[k++] = *itr;
+			}
+			array[i].clear();
+		}
+
+		#if DEBUG
+			printf("b array\n");
+			for ( i = 0 ; i < n ; i++ ) {
+				printf("%d " , b[i]);
+			}
+			printf("\n");
+		#endif
+
+		for ( i = 1 ; i < n ; i++ ) {
+			for ( j = 0 ; j < i ; j++ ) {
+				if ( b[i] >= b[j] && lis[i] < lis[j]+1 )
+					lis[i] = lis[j] + 1;
+			}
+		}
+
+		#if DEBUG
+			printf("LIS Table\n");
+			for ( i = 0 ; i < n ; i++ ) {
+				printf("%d " , lis[i]);
+			}
+			printf("\n");
+		#endif
+
+		int max = lis[0];
+		for ( i = 1 ; i < n ; i++ ) {
+			if ( lis[i] > max )
+				max = lis[i];
+		}
+
+		printf("%d\n" , max);
+
+	}
+	return 0;
+}

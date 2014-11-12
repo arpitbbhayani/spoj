@@ -1,0 +1,9 @@
+Current Jump Size : 5
+For element 9 it will jump to index 10
+For element 3 it will jump to index 5
+For element 2 it will jump to index 5
+For element 1 it will jump to index 5
+So i = 9
+Current Jump Size : 1
+Not possible
+-1

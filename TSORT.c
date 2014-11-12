@@ -1,30 +1,33 @@
 /*
-http://www.codechef.com/problems/TSORT
-*/
+ http://www.codechef.com/problems/TSORT
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
 
-int (compar)(const void * a , const void * b) {
+int hash[1000010];
 
-	return *((int *) a) - *((int *) b);
-}
+int main(int argc, char * argv[]) {
+	int t, i, x;
 
-int main ( int argc , char * argv[] ) {
-	int t , i;
-	int * a;
+	scanf("%d", &t);
 
-	scanf("%d" , &t);
-
-	a = (int *) calloc ( t , sizeof(int) );
-
-	for ( i = 0 ; i < t ; i++ ) {
-		scanf("%d\n" , &a[i] );
+	for (i = 0; i < t; i++) {
+		scanf("%d\n", &x);
+		hash[x]++;
 	}
-	qsort ( a , t , sizeof(int) , compar );
 
-	for ( i = 0 ; i < t ; i++ ) {
-		printf("%d\n" , a[i] );
+	int count = t;
+	int index = 0;
+
+	while( count != 0 ) {
+
+		for( i = 0 ; i < hash[index] ; i++ ) {
+			printf("%d\n", index);
+			count--;
+		}
+		index++;
+
 	}
 
 	return 0;

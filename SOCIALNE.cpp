@@ -8,44 +8,49 @@ int main ( int argc , char * argv[] ) {
 
 	int t;
 
-	list<int> node[61];
-
-	int m[61][61];
-
 	cin >> t;
-
-	getchar();
 
 	while ( t-- ) {
 
-		char ch;
+		int m[61][61];
+		list<int> node[61];
+
+		char str[64];
 
 		int n = 0;
 
-		node[0].clear();
-		while ( (ch = getchar()) != '\n' ) {
+		scanf("%s" , str);
+
+		int z = 0;
+
+		while ( str[z] != '\0' ) {
 			n++;
-			if ( ch == 'Y' ) {
+			if ( str[z] == 'Y' || str[z] == 'y' ) {
 				node[0].push_back(n-1);
 				m[0][n-1] = 1;
 			}
 			else {
 				m[0][n-1] = 0;
 			}
+
+			z++;
 		}
 
 		for ( int i = 1 ; i < n ; i++ ) {
-			node[i].clear();
 			n = 0;
-			while ( (ch = getchar()) != '\n' ) {
+			z = 0;
+			scanf("%s" , str);
+
+			while ( str[z] != '\0' ) {
 				n++;
-				if ( ch == 'Y' ) {
+				if ( str[z] == 'Y' || str[z] == 'y') {
 					node[i].push_back(n-1);
 					m[i][n-1] = 1;
 				}
 				else {
 					m[i][n-1] = 0;
 				}
+				z++;
 			}
 		}
 
@@ -68,7 +73,7 @@ int main ( int argc , char * argv[] ) {
 			for ( list<int>::iterator itr = node[i].begin() ; itr != node[i].end() ; itr++ ) {
 				int child = *itr;
 				for ( list<int>::iterator itr_c = node[child].begin() ; itr_c != node[child].end() ; itr_c++ ) {
-					if ( *itr_c != i && m[*itr_c][i] == 0 ) {
+					if ( *itr != *itr_c && *itr_c != i && m[*itr_c][i] == 0 ) {
 						count ++;
 						//cout << "Adding count for grand_child = " << *itr_c << " and parent = " << i << endl;
 					}
@@ -82,6 +87,7 @@ int main ( int argc , char * argv[] ) {
 
 		}
 		cout << max_n << " " << max_count << endl;
+
 
 
 	}

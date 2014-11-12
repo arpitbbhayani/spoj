@@ -1,0 +1,40 @@
+#include <cstdio>
+#include <cstdio>
+#include <iostream>
+
+using namespace std;
+
+int buffer[10];
+
+void print( int * array, int n, int k, int target, int index ) {
+
+	if( target < 0 ) {
+		return;
+	}
+
+	if( target == 0 ) {
+		for(int i = 0 ; i < index ; i++ ) {
+			cout << buffer[i] << " ";
+		}
+		cout << endl;
+		return;
+	}
+
+	for( int i = k ; i < n ; i++ ) {
+		buffer[index] = array[i];
+		print(array,n, i,target-array[i],index+1);
+	}
+
+}
+
+int main( int argc,char * argv[] ) {
+
+	int array[4] = {2,3,6,7};
+	int n= 4;
+
+	int target = 7;
+
+	print(array,n,0,target,0);	
+
+	return 0;
+}

@@ -1,0 +1,6 @@
+Little Endian and Big Endian:
+
+Address: Lower to higher.
+
+Little Endian -> When LSB gets into lower address.
+Big Endian    -> When MSB gets into lower address.

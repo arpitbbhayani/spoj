@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define DEBUG 0
 #define gc getchar
@@ -33,12 +34,14 @@ int readline(char * str) {
 	return i;
 }
 
-#define SIZE 1000000001
+#define SIZE 32000
 char array[SIZE];
+unsigned int prime[SIZE];
 
-int main(int argc, char * argv[]) {
+int sieve32000() {
 
-	int t, i, j;
+	unsigned int i, j;
+	int index = 0;
 
 	array[0] = 1;
 	array[1] = 1;
@@ -47,22 +50,44 @@ int main(int argc, char * argv[]) {
 		if (array[i] == 1)
 			continue;
 		array[i] = 0;
-		for (j = 2; j*i < SIZE; j++) {
+		prime[index++] = i;
+		for (j = 2; j * i < SIZE; j++) {
 			array[i * j] = 1;
 		}
 	}
 
-	//printf("Generated\n");
+	return index;
+
+}
+
+int main(int argc, char * argv[]) {
+
+	int t, i, j;
+
+	int k = (long long int) sieve32000();
+
 	scanf("%d", &t);
 
 	while (t--) {
 		int n, m;
+		scanf("%d%d", &n, &m);
 
-		scanf("%d%d" , &n , &m);
+		if (n == 1)
+			n = 2;
 
-		for (i = n; i <= m; i++) {
-			if (array[i] == 0) {
-				printf("%d\n", i);
+		for (; n <= m; n++) {
+			int is_prime = 1;
+			int s = sqrt(n);
+
+			for (i = 0; prime[i] <= s; i++) {
+				if (n % prime[i] == 0) {
+					is_prime = 0;
+					break;
+				}
+			}
+
+			if (is_prime == 1) {
+				printf("%u\n", n);
 			}
 		}
 

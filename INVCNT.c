@@ -32,6 +32,7 @@ long long int merge ( long long int * array , long long int l , long long int m 
 			b_array[k++] = array[i++];
 		}
 		else {
+
 			count += ( m - i + 1 );
 			//printf("inversion exist so count++ = %d\n" , count);
 			b_array[k++] = array[j++];

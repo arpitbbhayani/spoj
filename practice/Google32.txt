@@ -1,0 +1,58 @@
+CREATE TABLE WORK
+(
+	work_id   INT,
+	user_id   INT,
+	how_much  INT
+);
+
+
+CREATE TABLE USERS
+(
+	user_id   INT,
+	team	  INT
+);
+
+
+CREATE TABLE MANA
+(
+	manager_id   INT,
+	team		 INT
+);
+
+
+300 : managers
+200 : team
+100 : users
+1   : work
+
+
+insert into MANA values(300,200);
+insert into MANA values(301,201);
+insert into MANA values(302,202);
+
+
+insert into USERS values(100,200);
+insert into USERS values(101,200);
+insert into USERS values(102,200);
+insert into USERS values(103,200);
+insert into USERS values(104,201);
+insert into USERS values(105,201);
+insert into USERS values(106,201);
+insert into USERS values(107,201);
+
+insert into WORK values(1,100 , 10);
+insert into WORK values(1,102, 20);
+insert into WORK values(1,103, 30);
+insert into WORK values(1,105, 40);
+insert into WORK values(1,106, 50);
+
+
+Required Query:
+
+select user_id , how_much
+from WORK where 
+WORK.user_id in (select user_id from
+MANA
+INNER JOIN USERS
+on MANA.team = USERS.team
+WHERE MANA.manager_id = 300)

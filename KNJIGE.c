@@ -37,8 +37,7 @@ int a[SIZE];
 
 int main ( int argc , char * argv[] ) {
 
-	int t;
-	scanf("%d" , &t);
+	int t = 1;
 	while ( t-- ) {
 
 		int n;

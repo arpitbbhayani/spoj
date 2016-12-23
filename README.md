@@ -1,4 +1,5 @@
-# spoj - The repository full of solutions to questions hosted on SPOJ
+# Spoj Solutions
+The repository full of solutions to questions hosted on [SPOJ](https://www.spoj.com)
 
 It is **NOT** advisable to directly copy and paste the solution and make them work for you, but I would recommend you to first try out finding right, efficient and optimized solution by yourself and in case after a lot of tries you are unable to do so then you can anyday take help from this repository.
 
